@@ -1,7 +1,7 @@
 import logging
 import time
 
-from utils.utils import image_on_screen, find_image_and_click, get_screenshot
+from utils.utils import image_on_screen, find_image_and_click, get_screenshot, ImageNotFoundException
 
 FILES_FOLDER = "data/"
 
@@ -12,6 +12,7 @@ ALREADY_VOTE_IMG_PATH = FILES_FOLDER + "page_loaded.png"
 RELOAD_IMG_PATH = [(FILES_FOLDER + "reload_btn.png")]
 
 logging.root.setLevel(logging.INFO)
+
 
 def main():
     while True:
@@ -56,10 +57,13 @@ def already_vote(screenshot):
 
 def reload(screenshot):
     logging.info("ya se voto, recargando")
-    find_image_and_click(RELOAD_IMG_PATH,
-                         screenshot=screenshot,
-                         msg="reload btn",
-                         error_filename="fail_reload")
+    try:
+        find_image_and_click(RELOAD_IMG_PATH,
+                             screenshot=screenshot,
+                             msg="reload btn",
+                             error_filename="fail_reload")
+    except ImageNotFoundException:
+        logging.info("ya esta recargando, sigue aguarndando")
 
 
 if __name__ == "__main__":
