@@ -1,7 +1,13 @@
 import logging
 import time
 
-from utils.utils import image_on_screen, find_image_and_click, get_screenshot, ImageNotFoundException, DATA_FOLDER
+from utils.utils import (
+    image_on_screen,
+    find_image_and_click,
+    get_screenshot,
+    ImageNotFoundException,
+    DATA_FOLDER,
+)
 
 INITIAL_DELAY = 15
 SLEEP_DURATION = 3
@@ -39,35 +45,34 @@ def await_response(sleep_time=SLEEP_DURATION):
 
 
 def can_vote(screenshot):
-    on_screen, _, _ = image_on_screen(CAN_VOTE_IMG_PATH,
-                                      screenshot=screenshot)
+    on_screen, _, _ = image_on_screen(CAN_VOTE_IMG_PATH, screenshot=screenshot)
     return on_screen
 
 
 def vote(screenshot):
     global VOTE_COUNT
     logging.info("se puede votar, intentando votar")
-    find_image_and_click(VOTE_IMG_PATH,
-                         screenshot=screenshot,
-                         msg="vote btn",
-                         error_filename="fail_vote")
+    find_image_and_click(
+        VOTE_IMG_PATH, screenshot=screenshot, msg="vote btn", error_filename="fail_vote"
+    )
     VOTE_COUNT += 1
     logging.info(f"Votado {VOTE_COUNT} veces.")
 
 
 def already_vote(screenshot):
-    on_screen, _, _ = image_on_screen(ALREADY_VOTE_IMG_PATH,
-                                      screenshot=screenshot)
+    on_screen, _, _ = image_on_screen(ALREADY_VOTE_IMG_PATH, screenshot=screenshot)
     return on_screen
 
 
 def reload(screenshot):
     logging.info("ya se voto, recargando")
     try:
-        find_image_and_click(RELOAD_IMG_PATH,
-                             screenshot=screenshot,
-                             msg="reload btn",
-                             error_filename="fail_reload")
+        find_image_and_click(
+            RELOAD_IMG_PATH,
+            screenshot=screenshot,
+            msg="reload btn",
+            error_filename="fail_reload",
+        )
     except ImageNotFoundException:
         logging.info("ya esta recargando, sigue aguarndando")
 
