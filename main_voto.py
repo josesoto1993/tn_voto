@@ -5,6 +5,7 @@ from utils.utils import image_on_screen, find_image_and_click, get_screenshot, I
 
 INITIAL_DELAY = 15
 SLEEP_DURATION = 3
+VOTE_COUNT = 0
 INITIAL_SCREEN = "initial_screen.png"
 CAN_VOTE_IMG_PATH = DATA_FOLDER + "vote_btn.png"
 VOTE_IMG_PATH = [CAN_VOTE_IMG_PATH]
@@ -44,11 +45,14 @@ def can_vote(screenshot):
 
 
 def vote(screenshot):
+    global VOTE_COUNT
     logging.info("se puede votar, intentando votar")
     find_image_and_click(VOTE_IMG_PATH,
                          screenshot=screenshot,
                          msg="vote btn",
                          error_filename="fail_vote")
+    VOTE_COUNT += 1
+    logging.info(f"Votado {VOTE_COUNT} veces.")
 
 
 def already_vote(screenshot):
