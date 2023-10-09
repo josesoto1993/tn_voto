@@ -11,7 +11,7 @@ from PIL import Image
 DATA_FOLDER = "data/"
 ERROR_FOLDER = "errors"
 
-BASE_SCREENSHOT_NAME = 'screenshot.png'
+BASE_SCREENSHOT_NAME = "screenshot.png"
 
 RETRIES_TO_LOAD = 5
 MAX_CLOSE_RETRIES = 20
@@ -19,10 +19,9 @@ MAX_CLOSE_RETRIES = 20
 logging.basicConfig(level=logging.INFO)
 
 
-def image_on_screen(img_str: str,
-                    precision=0.8,
-                    screenshot: Image = None,
-                    gray_scale=True) -> Tuple[bool, Optional[Tuple[int, int]], Optional[float]]:
+def image_on_screen(
+    img_str: str, precision=0.8, screenshot: Image = None, gray_scale=True
+) -> Tuple[bool, Optional[Tuple[int, int]], Optional[float]]:
     if screenshot is None:
         screenshot = pyautogui.screenshot()
 
@@ -47,20 +46,17 @@ def image_on_screen(img_str: str,
 
 
 def find_image_and_click(
-        filepaths: list[str],
-        msg=None,
-        precision=0.8,
-        screenshot=None,
-        gray_scale=True,
-        retries=RETRIES_TO_LOAD,
-        error_filename=None
+    filepaths: list[str],
+    msg=None,
+    precision=0.8,
+    screenshot=None,
+    gray_scale=True,
+    retries=RETRIES_TO_LOAD,
+    error_filename=None,
 ):
     for _ in range(retries):
         on_screen, position, _, best_match_filepath = any_image_on_screen(
-            filepaths,
-            precision=precision,
-            screenshot=screenshot,
-            gray_scale=gray_scale
+            filepaths, precision=precision, screenshot=screenshot, gray_scale=gray_scale
         )
 
         if on_screen:
@@ -72,10 +68,9 @@ def find_image_and_click(
     _find_image_and_click_log_error(filepaths, msg=msg, filename=error_filename)
 
 
-def any_image_on_screen(paths_array: list[str],
-                        precision=0.8,
-                        screenshot=None,
-                        gray_scale=True) -> Tuple[bool, Optional[Tuple[int, int]], Optional[float], Optional[str]]:
+def any_image_on_screen(
+    paths_array: list[str], precision=0.8, screenshot=None, gray_scale=True
+) -> Tuple[bool, Optional[Tuple[int, int]], Optional[float], Optional[str]]:
     best_max_val = None
     best_max_loc = None
     best_image = None
@@ -83,10 +78,9 @@ def any_image_on_screen(paths_array: list[str],
         screenshot = pyautogui.screenshot()
 
     for img_str in paths_array:
-        on_screen, max_loc, max_val = image_on_screen(img_str,
-                                                      precision=precision,
-                                                      screenshot=screenshot,
-                                                      gray_scale=gray_scale)
+        on_screen, max_loc, max_val = image_on_screen(
+            img_str, precision=precision, screenshot=screenshot, gray_scale=gray_scale
+        )
 
         if on_screen and (best_max_val is None or max_val > best_max_val):
             best_max_val = max_val
@@ -118,8 +112,8 @@ def get_screenshot(save=False, filename=BASE_SCREENSHOT_NAME) -> Image:
 
 
 def save_screenshot(filename, screenshot):
-    if '.' not in filename:
-        filename += '.png'
+    if "." not in filename:
+        filename += ".png"
     screenshot.save(DATA_FOLDER + filename)
     logging.debug(f"Screenshot captured and saved as {filename}.")
 
