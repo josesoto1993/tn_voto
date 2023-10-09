@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "tn-voto"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = []
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+opencv-python = "^4.8.1.78"
+numpy = "^1.26.0"
+PyAutoGUI = "^0.9.54"
+Pillow = "^10.0.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.9.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
