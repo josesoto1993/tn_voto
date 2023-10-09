@@ -1,23 +1,25 @@
 import logging
 import time
 
-from utils.utils import image_on_screen, find_image_and_click, get_screenshot, ImageNotFoundException
+from utils.utils import image_on_screen, find_image_and_click, get_screenshot, ImageNotFoundException, DATA_FOLDER
 
-FILES_FOLDER = "data/"
-
+INITIAL_DELAY = 15
 SLEEP_DURATION = 3
-CAN_VOTE_IMG_PATH = FILES_FOLDER + "vote_btn.png"
+INITIAL_SCREEN = "initial_screen.png"
+CAN_VOTE_IMG_PATH = DATA_FOLDER + "vote_btn.png"
 VOTE_IMG_PATH = [CAN_VOTE_IMG_PATH]
-ALREADY_VOTE_IMG_PATH = FILES_FOLDER + "page_loaded.png"
-RELOAD_IMG_PATH = [(FILES_FOLDER + "reload_btn.png")]
+ALREADY_VOTE_IMG_PATH = DATA_FOLDER + "page_loaded.png"
+RELOAD_IMG_PATH = [(DATA_FOLDER + "reload_btn.png")]
 
 logging.root.setLevel(logging.INFO)
 
 
 def main():
+    await_response(INITIAL_DELAY)
+    get_screenshot(save=True, filename=INITIAL_SCREEN)
     while True:
-        await_response()
-        screenshot = get_screenshot(save=True)
+        await_response(SLEEP_DURATION)
+        screenshot = get_screenshot()
         handle_vote_loop(screenshot)
 
 
@@ -30,9 +32,9 @@ def handle_vote_loop(screenshot):
         logging.info("Ni se voto ni se puede votar")
 
 
-def await_response():
-    logging.info(f"sleep for: {SLEEP_DURATION} sec")
-    time.sleep(SLEEP_DURATION)
+def await_response(sleep_time=SLEEP_DURATION):
+    logging.info(f"sleep for: {sleep_time} sec")
+    time.sleep(sleep_time)
 
 
 def can_vote(screenshot):

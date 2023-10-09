@@ -16,11 +16,6 @@ BASE_SCREENSHOT_NAME = 'screenshot.png'
 RETRIES_TO_LOAD = 5
 MAX_CLOSE_RETRIES = 20
 
-GENERAL_FOLDER = "data/general"
-BTN_X_FOLDER = GENERAL_FOLDER + "/btn_x"
-CONTINUE_FOLDER = GENERAL_FOLDER + "/continue"
-INTERRUPT_FOLDER = GENERAL_FOLDER + "/interrupt"
-
 logging.basicConfig(level=logging.INFO)
 
 
